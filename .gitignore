@@ -133,3 +133,4 @@ _*.sh
 tmp/
 pyLindo/pyLindo_*
 *.old
+*.py~
