@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Lindo selections
+_*.sh
+tmp/
+pyLindo/pyLindo_*
+*.old
