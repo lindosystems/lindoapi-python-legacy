@@ -2,6 +2,7 @@ import numpy as N
 from pyLindo import LSconst
 from pyLindo import lindo
 
+
 def geterrormessage(pEnv,errorcode):
     if errorcode != LSconst.LSERR_NO_ERROR:
         errormessage = N.array('',dtype='S256')
@@ -10,6 +11,7 @@ def geterrormessage(pEnv,errorcode):
         lindo.pyLSdeleteEnv(pEnv)
         exit(1)
 
+
 def getversion(pEnv):
     pnMajor = N.array([-1],dtype=N.int32)
     pnMinor = N.array([-1],dtype=N.int32)
@@ -17,18 +19,18 @@ def getversion(pEnv):
     pnArchId = N.array([-1],dtype=N.int32)
 
     errorcode = lindo.pyLSgetEnvIntParameter(pEnv,LSconst.LS_IPARAM_VER_MAJOR,pnMajor)
-    #geterrormessage(pEnv,errorcode)
+    # geterrormessage(pEnv,errorcode)
     errorcode = lindo.pyLSgetEnvIntParameter(pEnv,LSconst.LS_IPARAM_VER_MINOR,pnMinor)
-    #geterrormessage(pEnv,errorcode)
+    # geterrormessage(pEnv,errorcode)
     errorcode = lindo.pyLSgetEnvIntParameter(pEnv,LSconst.LS_IPARAM_VER_REVISION,pnRevis)
-    #geterrormessage(pEnv,errorcode)
+    # geterrormessage(pEnv,errorcode)
     errorcode = lindo.pyLSgetInfo(None,LSconst.LS_IINFO_ARCH_ID,pnArchId)
     if True:
         version = N.array('',dtype='S256')
         builton = N.array('',dtype='S256')
-        lindo.pyLSgetVersionInfo(version,builton)        
+        lindo.pyLSgetVersionInfo(version, builton)
         version = version.astype('U')
         builton = builton.astype('U')
-        print("LINDO API Version ",version,builton)
-    verstr = "LINDO API Version %d.%d.%d, Arch %d" % (pnMajor[0],pnMinor[0],pnRevis[0],pnArchId[0])    
+        print("LINDO API Version ", version, builton)
+    verstr = "LINDO API Version %d.%d.%d, Arch %d" % (pnMajor[0],pnMinor[0],pnRevis[0],pnArchId[0])
     return verstr
