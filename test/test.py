@@ -19,22 +19,18 @@ def test_pyLindo_version():
     lindo.pyLSloadLicenseString(os.getenv('LINDOAPI_HOME')+'/license/lndapi130.lic',LicenseKey)
     pEnv = lindo.pyLScreateEnv(pnErrorCode,LicenseKey)
     errorcode = lindo.pyLSgetEnvIntParameter(pEnv,lindo.LS_IPARAM_VER_MAJOR,pnMajor)
-    geterrormessage(pEnv,errorcode)
+    lindo.geterrormessage(pEnv,errorcode)
     errorcode = lindo.pyLSgetEnvIntParameter(pEnv,lindo.LS_IPARAM_VER_MINOR,pnMinor)
-    geterrormessage(pEnv,errorcode)
+    lindo.geterrormessage(pEnv,errorcode)
 
     if pnMajor[0] != correct_major or pnMinor[0] != correct_minor:
         print("Test Failed")
     else:
         print("Passed")
 
-    #delete LINDO model pointer
-    errorcode = lindo.pyLSdeleteModel(pModel)
-    geterrormessage(pEnv,errorcode)
-
     #delete LINDO environment pointer
     errorcode = lindo.pyLSdeleteEnv(pEnv)
-    geterrormessage(pEnv,errorcode)
+    lindo.geterrormessage(pEnv,errorcode)
 
 
 
