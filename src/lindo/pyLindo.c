@@ -15083,10 +15083,10 @@ PyObject *pyLSgetObjPoolParam(PyObject *self, PyObject *args) {
   ZERO_BUF(20);
 
   if (!PyArg_ParseTuple(args, "OiiO!",
-    &pyModel, //pModel  
-    &ibuf[2], //nObjIndex  
-    &ibuf[3], //mParam  
-    &PyArray_Type, &pyArr[4])) {  //*pdValue 
+    &pyModel, //pModel
+    &ibuf[2], //nObjIndex
+    &ibuf[3], //mParam
+    &PyArray_Type, &pyArr[4])) {  //*pdValue
     return NULL;
   }
 
@@ -15096,7 +15096,7 @@ PyObject *pyLSgetObjPoolParam(PyObject *self, PyObject *args) {
 
 
 
-  // Get C pointers  
+  // Get C pointers
   if (pyArr[4] && pyArr[4]->dimensions > 0)
     dvecptr[4] = (double*)PyArray_GetPtr(pyArr[4], index); //*pdValue
 
