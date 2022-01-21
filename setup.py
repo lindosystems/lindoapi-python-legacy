@@ -50,7 +50,7 @@ kwargs = {
                 "Programming Language :: Python :: 3 :: Only",
         ],
         "python_requires" :">=3.6",
-        "install_requires" : ["wheel","numpy"],
+        "install_requires" : ["numpy >= 1.14.0"],
         "ext_modules" : [extension],
         "packages" : find_packages(where="src"),
         "package_dir" : {"": "src"},
