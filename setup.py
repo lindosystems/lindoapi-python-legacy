@@ -44,6 +44,7 @@ if platform == 'Windows':
     else:
         LibPath = os.path.join(API_HOME, 'lib/win32')
         BinPath = os.path.join(API_HOME, 'bin/win32')
+    funcName = "windows"
     extra_link_args = '-Wl,--enable-stdcall-fixup'
 
 # For Linux
@@ -56,6 +57,7 @@ elif platform == 'Linux':
         LindoLib = 'lindo'
         LibPath = os.path.join(API_HOME, 'lib/linux32')
         BinPath = os.path.join(API_HOME, 'bin/linux32')
+    funcName = "linux"
     extra_link_args = '-Wl,-rpath-link,' + LibPath + ' -Wl,-rpath,' + LibPath
 
 # For Mac OS X
@@ -69,6 +71,7 @@ elif platform == 'Darwin':
         LindoLib = 'lindo'
         LibPath = os.path.join(API_HOME, 'lib/osx32x86')
         BinPath = os.path.join(API_HOME, 'bin/osx32x86')
+    funcName = "mac"
     extra_link_args = '-Wl,-rpath,' + LibPath
 
 else:
@@ -111,16 +114,10 @@ kwargs = {
         "package_data": {"lindo": ["*.txt"]},
         "entry_points": {
                 'console_scripts': [
-                    'link_lindo=lindo_command.command_line:main',
+                    'link_lindo=lindo_command.command_line:'+funcName,
                 ],
             },
 
 }
 
 setup(**kwargs)
-
-#
-# "cmdclass": {'install': install_py,
-#              'develop': develop_py, 'egg_info': egg_py}
-
-# "entry_points": {'console_scripts': ['hello=lindo:say_hello']}
