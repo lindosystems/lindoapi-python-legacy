@@ -10,7 +10,7 @@ import os
 import sys
 import platform
 
-VERSION = "1.0.0"
+VERSION = "1.0.1"
 
 class BuildData():
     """
@@ -112,10 +112,10 @@ kwargs = {
         "url": "http://www.lindo.com",
         "classifiers": [
                 "Programming Language :: Python :: 3",
-                "Programming Language :: Python :: 3.6",
                 "Programming Language :: Python :: 3.7",
                 "Programming Language :: Python :: 3.8",
                 "Programming Language :: Python :: 3.9",
+                "Programming Language :: Python :: 3.10",
                 "Programming Language :: Python :: 3 :: Only",
         ],
         "python_requires": ">=3.6",
