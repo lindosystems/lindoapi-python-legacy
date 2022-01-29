@@ -29,7 +29,8 @@ class BuildData():
         self.API_HOME = os.environ.get('LINDOAPI_HOME')
         self.platform = platform.system()
         self.is_64bits = sys.maxsize > 2**32
-        self.pylindoPath = os.path.join(os.path.dirname(__file__), "../lindo")
+        self.pylindoPath = os.path.join(get_python_lib(
+             plat_specific=1), 'lindo')
 
 def setSymLink(src, dest):
     print(src," -> ", dest)
@@ -73,11 +74,13 @@ def linux():
 """
 def mac():
     bd = BuildData()
-    libname = "liblindo64." + bd.MAJOR + "." + bd.MINOR + ".dylib"
+    libname = "liblindo64.dylib"
     binPath = os.path.join("bin/osx64x86/", libname)
     lindoPath = os.path.join(bd.API_HOME, binPath)
     linkPath = os.path.join(bd.pylindoPath, libname)
     setSymLink(lindoPath, linkPath)
+    print("Testing the Lindo Python package...")
+    lindo_test.test_pyLindo_version()
 
 """
     Windows command
@@ -91,3 +94,5 @@ def windows():
         dllName = str.split(dllPath, sep="\\")[-1]
         linkPath = os.path.join(bd.pylindoPath, dllName)
         setSymLink(dllPath, linkPath)
+    print("Testing the Lindo Python package...")
+    lindo_test.test_pyLindo_version()
