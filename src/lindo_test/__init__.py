@@ -1,7 +1,3 @@
-import lindo
-import numpy as np
-import os
-
 """
     test_pyLindo_version():
 
@@ -10,6 +6,11 @@ import os
 
 """
 def test_pyLindo_version():
+
+    import lindo
+    import numpy as np
+    import os
+
     correct_major = 13
     correct_minor = 0
     pnMajor = np.array([-1],dtype=np.int32)
@@ -31,10 +32,3 @@ def test_pyLindo_version():
     #delete LINDO environment pointer
     errorcode = lindo.pyLSdeleteEnv(pEnv)
     lindo.geterrormessage(pEnv,errorcode)
-
-
-
-
-
-if __name__ == '__main__':
-    test_pyLindo_version()

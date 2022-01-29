@@ -6,9 +6,25 @@ import os
 import sys
 import platform
 
-MAJOR = "13"
-MINOR = "0"
+class BuildData():
+    """
+    BuildData()
 
+    A class for holding data about Operating system
+    and Lindo location/ version
+
+    """
+    def __init__(self):
+        self.MAJOR = "13"
+        self.MINOR = "0"
+        self.API_HOME = os.environ.get('LINDOAPI_HOME')
+        self.IncludePath = os.path.join(API_HOME, "include")
+        self.platform = platform.system()
+        self.is_64bits = sys.maxsize > 2**32
+        self.pylindoPath = os.path.join(os.path.dirname(__file__), "../lindo")
+
+
+bd = BuildData()
 
 try:
     import numpy
@@ -29,50 +45,42 @@ with open(readmeFn, encoding="utf-8") as f:
     f.close()
 
 
-API_HOME = os.environ.get('LINDOAPI_HOME')
-IncludePath = os.path.join(API_HOME, "include")
-
-platform = platform.system()
-is_64bits = sys.maxsize > 2**32
-
 # For Windows
-if platform == 'Windows':
-    LindoLib = 'lindo64_' + MAJOR + '_' + MINOR
-    if is_64bits:
-        LibPath = os.path.join(API_HOME, 'lib/win64')
-        BinPath = os.path.join(API_HOME, 'lib/win64')
+if bd.platform == 'Windows':
+    LindoLib = 'lindo64_' + bd.MAJOR + '_' + bd.MINOR
+    if bd.is_64bits:
+        LibPath = os.path.join(bd.API_HOME, 'lib/win64')
+        BinPath = os.path.join(bd.API_HOME, 'lib/win64')
     else:
-        LibPath = os.path.join(API_HOME, 'lib/win32')
-        BinPath = os.path.join(API_HOME, 'bin/win32')
+        LibPath = os.path.join(bd.API_HOME, 'lib/win32')
+        BinPath = os.path.join(bd.API_HOME, 'bin/win32')
     funcName = "windows"
     extra_link_args = '-Wl,--enable-stdcall-fixup'
+    macros = ('_LINDO_DLL_', '')
 
 # For Linux
-elif platform == 'Linux':
-    if is_64bits:
+elif bd.platform == 'Linux':
+    if bd.is_64bits:
         LindoLib = 'lindo64'
-        LibPath = os.path.join(API_HOME, 'lib/linux64')
-        BinPath = os.path.join(API_HOME, 'bin/linux64')
+        LibPath = os.path.join(bd.API_HOME, 'lib/linux64')
+        BinPath = os.path.join(bd.API_HOME, 'bin/linux64')
     else:
         LindoLib = 'lindo'
-        LibPath = os.path.join(API_HOME, 'lib/linux32')
-        BinPath = os.path.join(API_HOME, 'bin/linux32')
+        LibPath = os.path.join(bd.API_HOME, 'lib/linux32')
+        BinPath = os.path.join(bd.API_HOME, 'bin/linux32')
     funcName = "linux"
-    extra_link_args = '-Wl,-rpath-link,' + LibPath + ' -Wl,-rpath,' + LibPath
+    extra_link_args = '-Wl,-rpath=' + BinPath
+    macros = ()
 
 # For Mac OS X
-elif platform == 'Darwin':
-    if is_64bits:
-        LindoLib = 'lindo64'
-        LibPath = os.path.join(API_HOME, 'lib/osx64x86')
-        BinPath = os.path.join(API_HOME, 'bin/osx64x86')
-        lib = os.path.join('bin/osx64x86', LindoLib + ".dylib")
-    else:
-        LindoLib = 'lindo'
-        LibPath = os.path.join(API_HOME, 'lib/osx32x86')
-        BinPath = os.path.join(API_HOME, 'bin/osx32x86')
+elif bd.platform == 'Darwin':
+    LindoLib = 'lindo64'
+    LibPath = os.path.join(bd.API_HOME, 'lib/osx64x86')
+    BinPath = os.path.join(bd.API_HOME, 'bin/osx64x86')
+    lib = os.path.join('bin/osx64x86', LindoLib + ".dylib")
     funcName = "mac"
     extra_link_args = '-Wl,-rpath,' + LibPath
+    macros = ()
 
 else:
     print("System not supported!")
@@ -81,8 +89,8 @@ else:
 
 extension = Extension(
                 name="lindo.lindo",
-                define_macros=[('_LINDO_DLL_', '')],
                 sources=["src/lindo/pyLindo.c"],
+                define_macros=[macros]
                 library_dirs=[LibPath, BinPath],
                 libraries=[LindoLib],
                 include_dirs=[IncludePath, numpyinclude],
