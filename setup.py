@@ -1,10 +1,16 @@
+"""
+    setup.py
 
+    This script is for building the lindo python package.
+"""
 from setuptools import setup, Extension, find_packages
 from distutils.sysconfig import get_python_lib
 
 import os
 import sys
 import platform
+
+VERSION = "1.0.0"
 
 class BuildData():
     """
@@ -21,7 +27,6 @@ class BuildData():
         self.IncludePath = os.path.join(self.API_HOME , "include")
         self.platform = platform.system()
         self.is_64bits = sys.maxsize > 2**32
-        self.pylindoPath = os.path.join(os.path.dirname(__file__), "../lindo")
 
 
 bd = BuildData()
@@ -56,7 +61,7 @@ if bd.platform == 'Windows':
         BinPath = os.path.join(bd.API_HOME, 'bin/win32')
     funcName = "windows"
     extra_link_args = '-Wl,--enable-stdcall-fixup'
-    macros = ('_LINDO_DLL_', '')
+    macros = [('_LINDO_DLL_', '')]
 
 # For Linux
 elif bd.platform == 'Linux':
@@ -70,7 +75,7 @@ elif bd.platform == 'Linux':
         BinPath = os.path.join(bd.API_HOME, 'bin/linux32')
     funcName = "linux"
     extra_link_args = '-Wl,-rpath=' + BinPath
-    macros = ('',)
+    macros = []
 
 # For Mac OS X
 elif bd.platform == 'Darwin':
@@ -80,8 +85,7 @@ elif bd.platform == 'Darwin':
     lib = os.path.join('bin/osx64x86', LindoLib + ".dylib")
     funcName = "mac"
     extra_link_args = '-Wl,-rpath,' + LibPath
-    macros = ('_LINDO_DLL_', '')
-
+    macros = []
 else:
     print("System not supported!")
     exit(0)
@@ -90,7 +94,7 @@ else:
 extension = Extension(
                 name="lindo.lindo",
                 sources=["src/lindo/pyLindo.c"],
-                define_macros=[macros],
+                define_macros=macros,
                 library_dirs=[LibPath, BinPath],
                 libraries=[LindoLib],
                 include_dirs=[bd.IncludePath, numpyinclude],
@@ -99,7 +103,7 @@ extension = Extension(
 
 kwargs = {
         "name": "lindo",
-        "version": "1.0.0",
+        "version": VERSION,
         "description": "Python interface to LINDO API",
         "long_description": long_description,
         "long_description_content_type": "text/markdown",
