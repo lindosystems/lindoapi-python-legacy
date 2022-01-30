@@ -1,4 +1,5 @@
-cdimport numpy as N
+
+import numpy as N
 from .LSconst import *
 try:
     from .lindo import *
