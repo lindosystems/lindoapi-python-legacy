@@ -66,7 +66,6 @@ def linux():
     print(LD_LIBRARY_PATH)
     print(exportCMD)
     print("=============================================================")
-
     
 """
     Mac OS command
@@ -74,7 +73,7 @@ def linux():
 """
 def mac():
     bd = BuildData()
-    libname = "liblindo64.dylib"
+    libname = "liblindo64."+bd.MAJOR+"."+bd.MINOR+".dylib"
     binPath = os.path.join("bin/osx64x86/", libname)
     lindoPath = os.path.join(bd.API_HOME, binPath)
     linkPath = os.path.join(bd.pylindoPath, libname)

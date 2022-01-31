@@ -75,7 +75,7 @@ elif bd.platform == 'Linux':
         BinPath = os.path.join(bd.API_HOME, 'bin/linux32')
     funcName = "linux"
     extra_link_args = '-Wl,-rpath=' + BinPath
-    macros = []
+    macros = [('_LINDO_DLL_', '')]
 
 # For Mac OS X
 elif bd.platform == 'Darwin':
@@ -85,7 +85,7 @@ elif bd.platform == 'Darwin':
     lib = os.path.join('bin/osx64x86', LindoLib + ".dylib")
     funcName = "mac"
     extra_link_args = '-Wl,-rpath,' + LibPath
-    macros = []
+    macros = [('_LINDO_DLL_', '')]
 else:
     print("System not supported!")
     exit(0)
@@ -96,6 +96,7 @@ extension = Extension(
                 sources=["src/lindo/pyLindo.c"],
                 define_macros=macros,
                 library_dirs=[LibPath, BinPath],
+                depends=[BinPath],
                 libraries=[LindoLib],
                 include_dirs=[bd.IncludePath, numpyinclude],
                 extra_link_args=[extra_link_args],
