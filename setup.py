@@ -10,7 +10,7 @@ import os
 import sys
 import platform
 
-VERSION = "1.0.1"
+VERSION = "1.0.2"
 
 class BuildData():
     """
@@ -119,7 +119,7 @@ kwargs = {
                 "Programming Language :: Python :: 3 :: Only",
         ],
         "python_requires": ">=3.6",
-        "install_requires": ["numpy >= 1.14.0"],
+        "install_requires": ["numpy >= 1"],
         "ext_modules": [extension],
         "packages": find_packages(where="src"),
         "package_dir": {"": "src"},
