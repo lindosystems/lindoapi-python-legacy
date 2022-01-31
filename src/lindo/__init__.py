@@ -1,21 +1,24 @@
 
 import numpy as N
+
+import lindo_command
 from .LSconst import *
 try:
     from .lindo import *
 except Exception:
-    print("""Importing lindo has failed
-             In command shell type `link_lindo` to connect the Lindo API's libraies with the lindo Python package.
-             If you are using windows `link_lindo` must be ran from an Administrator Command Prompt.
+    print("Linking Error: ")
+    from lindo_command import  *
+    import platform
+    if platform.system() == 'Windows':
+        print("Run in an Administrator command prompt")
+        lindo_command.windows()
+    elif platform.system() == 'Darwin':
+        lindo_command.mac()
+    else:
+        lindo_command.linux()
+    from .lindo import *
 
-             Also make sure the enviromet variable LINDOAPI_HOME has been set.
-            
-            On windows:
-            set LINDOAPI_HOME="c:\\path\\to\\lindoapi"
 
-            On Mac/ Linux:
-            export LINDOAPI_HOME="/path/to/lindoapi"
-            """)
 
 def geterrormessage(pEnv, errorcode):
     if errorcode != LSconst.LSERR_NO_ERROR:

@@ -59,7 +59,6 @@ if bd.platform == 'Windows':
     else:
         LibPath = os.path.join(bd.API_HOME, 'lib/win32')
         BinPath = os.path.join(bd.API_HOME, 'bin/win32')
-    funcName = "windows"
     extra_link_args = '-Wl,--enable-stdcall-fixup'
     macros = [('_LINDO_DLL_', '')]
 
@@ -73,7 +72,6 @@ elif bd.platform == 'Linux':
         LindoLib = 'lindo'
         LibPath = os.path.join(bd.API_HOME, 'lib/linux32')
         BinPath = os.path.join(bd.API_HOME, 'bin/linux32')
-    funcName = "linux"
     extra_link_args = '-Wl,-rpath=' + BinPath
     macros = [('_LINDO_DLL_', '')]
 
@@ -125,12 +123,6 @@ kwargs = {
         "packages": find_packages(where="src"),
         "package_dir": {"": "src"},
         "package_data": {"lindo": ["*.txt"]},
-        "entry_points": {
-                'console_scripts': [
-                    'link_lindo=lindo_command.command_line:'+funcName,
-                ],
-            },
-
 }
 
 setup(**kwargs)
