@@ -1,5 +1,5 @@
 """
-    command_line.py
+    link.py
     This module is used to build the entry_points from setup.py
     The command link_lindo creates a symbolic link between the
     Lindo binaries to the python library.
@@ -7,8 +7,6 @@
 
 
 from distutils.sysconfig import get_python_lib
-import lindo_test
-import subprocess
 import platform
 import os
 import sys
@@ -49,8 +47,7 @@ def setSymLink(src, dest):
     linux is going to temporarily add lindo to LD_LIBRARY_PATH
     
 """
-def linux():
-    bd = BuildData()
+def linux(bd:BuildData):
     binPath = "bin/linux64/"
     lindoPath = os.path.join(bd.API_HOME, binPath)
     LD_LIBRARY_PATH = "LD_LIBRARY_PATH=$LD_LIBRARY_PATH:"+lindoPath
@@ -58,8 +55,6 @@ def linux():
     print("Temporarily adding Lindo API to the dynamic library path environment variable")
     os.system(LD_LIBRARY_PATH )
     os.system(exportCMD)
-    print("Testing the Lindo Python package...")
-    lindo_test.test_pyLindo_version()
     print("=============================================================")
     print("#Copy below to .bashrc")
     print("#Adds the Lindo API to the dynamic library path environment variable")
@@ -71,27 +66,21 @@ def linux():
     Mac OS command
     Links the liblindo dylib to the lindo python library
 """
-def mac():
-    bd = BuildData()
-    libname = "liblindo64."+bd.MAJOR+"."+bd.MINOR+".dylib"
-    binPath = os.path.join("bin/osx64x86/", libname)
-    lindoPath = os.path.join(bd.API_HOME, binPath)
-    linkPath = os.path.join(bd.pylindoPath, libname)
-    setSymLink(lindoPath, linkPath)
-    print("Testing the Lindo Python package...")
-    lindo_test.test_pyLindo_version()
-
+def mac(bd:BuildData):
+    binPath = os.path.join(bd.API_HOME, "bin/osx64x86")
+    dylibList = glob.glob(os.path.join(binPath, "*.dylib"))
+    for dylibPath in dylibList:
+        dylibName = str.split(dylibPath, sep="/")[-1]
+        linkPath = os.path.join(bd.pylindoPath, dylibName)
+        setSymLink(dylibPath, linkPath)
 """
     Windows command
     Links every Lindo .dll to the python library
 """
-def windows():
-    bd = BuildData()
+def windows(bd:BuildData):
     binPath = os.path.join(bd.API_HOME,"bin/win64/")
     dllList = glob.glob(os.path.join(binPath, "*.dll"))
     for dllPath in dllList:
         dllName = str.split(dllPath, sep="\\")[-1]
         linkPath = os.path.join(bd.pylindoPath, dllName)
         setSymLink(dllPath, linkPath)
-    print("Testing the Lindo Python package...")
-    lindo_test.test_pyLindo_version()

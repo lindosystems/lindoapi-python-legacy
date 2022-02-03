@@ -1,24 +1,17 @@
 
 import numpy as N
-
-import lindo_command
+import lindo_link
 from .LSconst import *
 try:
     from .lindo import *
 except Exception:
-    print("Linking Error: ")
-    from lindo_command import  *
-    import platform
-    if platform.system() == 'Windows':
-        print("Run in an Administrator command prompt")
-        lindo_command.windows()
-    elif platform.system() == 'Darwin':
-        lindo_command.mac()
-    else:
-        lindo_command.linux()
-    from .lindo import *
-
-
+    print("""
+            import lindo failed
+            To link the API library with the python library
+            python -m lindo_link
+            To test if the Python package is working:
+            python -m lindo_test
+        """)
 
 def geterrormessage(pEnv, errorcode):
     if errorcode != LSconst.LSERR_NO_ERROR:
