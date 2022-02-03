@@ -1,4 +1,42 @@
 import numpy as N
+import os, platform,sys
+
+#Environment variable LINDOAPI_HOME must be set
+API_HOME = os.environ.get('LINDOAPI_HOME')
+
+if API_HOME == None:
+    print("Environment variable LINDOAPI_HOME should be set!")
+    exit(0)
+    
+platform = platform.system()
+is_64bits = sys.maxsize > 2**32
+
+#For Windows
+if platform == 'Windows' or platform == "CYGWIN_NT-6.3":
+    if is_64bits:
+        LibPath = API_HOME + '/bin/win64'        
+    else:
+        LibPath = API_HOME + '/bin/win32'
+        
+#For Linux
+elif platform == 'Linux':
+    if is_64bits:
+        LibPath = API_HOME + '/bin/linux64'
+    else:
+        LibPath = API_HOME + '/bin/linux32'
+
+#For Mac OS X
+elif platform == 'Darwin':
+    if is_64bits:
+        LibPath = API_HOME + '/bin/osx64x86'
+    else:
+        LibPath = API_HOME + '/bin/osx32x86'
+else:
+    print("System not supported!")
+    exit(0)
+
+os.add_dll_directory(LibPath)
+
 from pyLindo import LSconst
 from pyLindo import lindo
 
