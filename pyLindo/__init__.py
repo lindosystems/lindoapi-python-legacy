@@ -17,6 +17,7 @@ if platform == 'Windows' or platform == "CYGWIN_NT-6.3":
         LibPath = API_HOME + '/bin/win64'        
     else:
         LibPath = API_HOME + '/bin/win32'
+    os.add_dll_directory(LibPath)
         
 #For Linux
 elif platform == 'Linux':
@@ -34,8 +35,8 @@ elif platform == 'Darwin':
 else:
     print("System not supported!")
     exit(0)
+print("LINDOAPI for '%s' will load from '%s'" % (platform,LibPath))
 
-os.add_dll_directory(LibPath)
 
 from pyLindo import LSconst
 from pyLindo import lindo
