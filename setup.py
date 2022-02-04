@@ -10,7 +10,7 @@ import os
 import sys
 import platform
 
-VERSION = "1.0.1"
+VERSION = "1.0.2"
 
 class BuildData():
     """
@@ -117,7 +117,7 @@ kwargs = {
                 "Programming Language :: Python :: 3.10",
                 "Programming Language :: Python :: 3 :: Only",
         ],
-        "python_requires": ">=3.6",
+        "python_requires": ">=3.7",
         "install_requires": ["numpy>=1.19"],
         "ext_modules": [extension],
         "packages": ["lindo", "lindo_link", "lindo_test"],
