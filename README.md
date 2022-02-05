@@ -37,6 +37,7 @@ If you are using Python3.8 or grater you will need to link the Lindo API Library
 ```bash
 > python -m lindo_link
 ```
+**Note** If you are using Windows the link program in an administrator command prompt.
 
 A quick way to test the installation is to run
 ```bash
