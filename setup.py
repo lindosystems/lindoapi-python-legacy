@@ -73,7 +73,7 @@ elif bd.platform == 'Linux':
         LibPath = os.path.join(bd.API_HOME, 'lib/linux32')
         BinPath = os.path.join(bd.API_HOME, 'bin/linux32')
     extra_link_args = '-Wl,-rpath=' + BinPath
-    macros = [('_LINDO_DLL_', '')]
+    macros = []
 
 # For Mac OS X
 elif bd.platform == 'Darwin':
