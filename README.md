@@ -1,6 +1,17 @@
 The Python Interface to LINDO API.
 
 This package requires LINDO API 13.0 and a valid license key. Please refer to INSTALL for installation details.
+An environment variable named LINDOAPI_HOME needs to be created before building, and using the Lindo API.
+### Using Windows
+On the command line
+```dos
+> set LINDOAPI_HOME="c:/lindoapi"
+```
+### Using Mac or Linux
+On the command line
+```sh
+$ export LINDOAPI_HOME="/opt/lindoapi"
+```
 
 ## How to download
 
