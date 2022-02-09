@@ -33,9 +33,9 @@ elif platform == 'Darwin':
     else:
         LibPath = API_HOME + '/bin/osx32x86'
 else:
-    print("System not supported!")
+    print("Platform '%s' not supported!" % (platform))
     exit(0)
-print("LINDOAPI for '%s' will load from '%s'" % (platform,LibPath))
+#print("LINDOAPI for '%s' will load from '%s'" % (platform,LibPath))
 
 
 from pyLindo import LSconst
