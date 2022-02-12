@@ -72,16 +72,21 @@ elif bd.platform == 'Linux':
         LindoLib = 'lindo'
         LibPath = os.path.join(bd.API_HOME, 'lib/linux32')
         BinPath = os.path.join(bd.API_HOME, 'bin/linux32')
-    extra_link_args = '-Wl,-rpath=' + BinPath
+    extra_link_args = '-Wl,-rpath-link,' + LibPath + ' -Wl,-rpath,' + LibPath
     macros = []
 
 # For Mac OS X
 elif bd.platform == 'Darwin':
-    LindoLib = 'lindo64'
-    LibPath = os.path.join(bd.API_HOME, 'lib/osx64x86')
-    BinPath = os.path.join(bd.API_HOME, 'bin/osx64x86')
-    lib = os.path.join('bin/osx64x86', LindoLib + ".dylib")
-    funcName = "mac"
+    if bd.is_64bits:
+        LindoLib = 'lindo64'
+        LibPath = os.path.join(bd.API_HOME, 'lib/osx64x86')
+        BinPath = os.path.join(bd.API_HOME, 'bin/osx64x86')
+        lib = os.path.join('bin/osx64x86', LindoLib + ".dylib")
+    else:
+        LindoLib = 'lindo'
+        LibPath = os.path.join(bd.API_HOME, 'lib/osx32x86')
+        BinPath = os.path.join(bd.API_HOME, 'bin/osx32x86')
+        lib = os.path.join('bin/osx32x86', LindoLib + ".dylib")
     extra_link_args = '-Wl,-rpath,' + LibPath
     macros = [('_LINDO_DLL_', '')]
 else:
@@ -120,7 +125,7 @@ kwargs = {
         "python_requires": ">=3.7",
         "install_requires": ["numpy>=1.19"],
         "ext_modules": [extension],
-        "packages": ["lindo", "lindo_link", "lindo_test"],
+        "packages": ["lindo", "lindo_test"],
         "package_dir": {"": "src"},
         "package_data": {"lindo": ["*.txt"]},
 }
