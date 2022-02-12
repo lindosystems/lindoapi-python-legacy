@@ -42,14 +42,7 @@ The package can now be installed locally using the command.
 > pip install dist/*.whl
 ```
 
-## Getting Setup
-
-If you are using Python3.8 or grater you will need to link the Lindo API Library with the newly installed python library. To do so run the command
-```bash
-> python -m lindo_link
-```
-**Note** If you are using Windows the link program in an administrator command prompt.
-
+## Testing installation
 A quick way to test the installation is to run
 ```bash
 > python -m lindo_test
