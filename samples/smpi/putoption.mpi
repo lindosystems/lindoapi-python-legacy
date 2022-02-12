@@ -1,0 +1,155 @@
+BEGINMODEL   putoption2  
+! Number of Objective Functions:         1
+! Number of Constraints        :        13
+! Number of Variables          :        18
+VARIABLES
+!Name         Lower Bound       Initial Point         Upper Bound    Type
+W5 -1e+030  1.2345678806304932  1e+030        C
+P0 0  1.2345678806304932  1e+030        C
+P1 -1e+030  1.2345678806304932  1e+030        C
+P2 -1e+030  1.2345678806304932  1e+030        C
+P3 -1e+030  1.2345678806304932  1e+030        C
+P4 -1e+030  1.2345678806304932  1e+030        C
+P5 -1e+030  1.2345678806304932  1e+030        C
+Y0 0  1  1        B
+W0 -1e+030  1.2345678806304932  1e+030        C
+Y1 0  1  1        B
+W1 -1e+030  1.2345678806304932  1e+030        C
+Y2 0  1  1        B
+W2 -1e+030  1.2345678806304932  1e+030        C
+Y3 0  1  1        B
+W3 -1e+030  1.2345678806304932  1e+030        C
+Y4 0  1  1        B
+W4 -1e+030  1.2345678806304932  1e+030        C
+Y5 0  1  1        B
+OBJECTIVES
+  OBJ00000    MAXIMIZE  
+    EP_PUSH_VAR  W5
+CONSTRAINTS
+  INITIAL    E         
+    EP_PUSH_VAR  P0
+    EP_PUSH_NUM       100 
+    EP_MINUS    
+  R0000001    E         
+    EP_PUSH_VAR  P0
+    EP_PUSH_NUM       1 
+    EP_PUSH_SVAR RV000000
+    EP_PLUS     
+    EP_MULTIPLY 
+    EP_PUSH_VAR  P1
+    EP_MINUS
+  R0000003    E         
+    EP_PUSH_VAR  P1  
+    EP_PUSH_NUM       1 
+    EP_PUSH_SVAR RV000001
+    EP_PLUS     
+    EP_MULTIPLY 
+    EP_PUSH_VAR  P2
+    EP_MINUS
+  R0000005    E         
+    EP_PUSH_VAR  P2  
+    EP_PUSH_NUM       1 
+    EP_PUSH_SVAR RV000002
+    EP_PLUS     
+    EP_MULTIPLY     
+    EP_PUSH_VAR  P3
+    EP_MINUS    
+  R0000007    E         
+    EP_PUSH_VAR  P3  
+    EP_PUSH_NUM       1 
+    EP_PUSH_SVAR RV000003    
+    EP_PLUS         
+    EP_MULTIPLY 
+    EP_PUSH_VAR  P4
+    EP_MINUS    
+  R0000009    E         
+    EP_PUSH_VAR  P4  
+    EP_PUSH_NUM       1 
+    EP_PUSH_SVAR RV000004
+    EP_PLUS     
+    EP_MULTIPLY 
+    EP_PUSH_VAR  P5
+    EP_MINUS    
+  R0000000    E         
+    EP_PUSH_VAR  Y0
+    EP_PUSH_NUM       99 
+    EP_PUSH_VAR  P0
+    EP_MINUS    
+    EP_MULTIPLY 
+    EP_PUSH_VAR  W0
+    EP_MINUS    
+  R0000002    E         
+    EP_PUSH_NUM       1.04 
+    EP_PUSH_VAR  W0
+    EP_MULTIPLY 
+    EP_PUSH_VAR  Y1
+    EP_PUSH_NUM       99 
+    EP_PUSH_VAR  P1
+    EP_MINUS    
+    EP_MULTIPLY 
+    EP_PLUS     
+    EP_PUSH_VAR  W1
+    EP_MINUS    
+  R0000004    E         
+    EP_PUSH_NUM       1.04 
+    EP_PUSH_VAR  W1
+    EP_MULTIPLY 
+    EP_PUSH_VAR  Y2
+    EP_PUSH_NUM       99 
+    EP_PUSH_VAR  P2
+    EP_MINUS    
+    EP_MULTIPLY 
+    EP_PLUS     
+    EP_PUSH_VAR  W2
+    EP_MINUS    
+  R0000006    E         
+    EP_PUSH_NUM       1.04 
+    EP_PUSH_VAR  W2
+    EP_MULTIPLY 
+    EP_PUSH_VAR  Y3
+    EP_PUSH_NUM       99 
+    EP_PUSH_VAR  P3
+    EP_MINUS    
+    EP_MULTIPLY 
+    EP_PLUS     
+    EP_PUSH_VAR  W3
+    EP_MINUS    
+  R0000008    E         
+    EP_PUSH_NUM       1.04 
+    EP_PUSH_VAR  W3
+    EP_MULTIPLY 
+    EP_PUSH_VAR  Y4
+    EP_PUSH_NUM       99 
+    EP_PUSH_VAR  P4
+    EP_MINUS    
+    EP_MULTIPLY 
+    EP_PLUS     
+    EP_PUSH_VAR  W4
+    EP_MINUS    
+  R0000010    E         
+    EP_PUSH_NUM       1.04 
+    EP_PUSH_VAR  W4
+    EP_MULTIPLY 
+    EP_PUSH_VAR  Y5
+    EP_PUSH_NUM       99 
+    EP_PUSH_VAR  P5
+    EP_MINUS    
+    EP_MULTIPLY 
+    EP_PLUS     
+    EP_PUSH_VAR  W5
+    EP_MINUS    
+  R0000011    L         
+    EP_PUSH_VAR  Y0
+    EP_PUSH_VAR  Y1
+    EP_PLUS     
+    EP_PUSH_VAR  Y2
+    EP_PLUS     
+    EP_PUSH_VAR  Y3
+    EP_PLUS     
+    EP_PUSH_VAR  Y4
+    EP_PLUS     
+    EP_PUSH_VAR  Y5
+    EP_PLUS     
+    EP_PUSH_NUM       1 
+    EP_MINUS    
+ENDMODEL
