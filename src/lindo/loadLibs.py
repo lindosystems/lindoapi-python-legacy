@@ -65,10 +65,9 @@ def main():
         print("Environment variable LINDOAPI_HOME should be set!")
         exit(0)
     if bd.platform == 'Windows' or bd.platform == "CYGWIN_NT-6.3":
-        ret = windows(bd)
+        windows(bd)
     elif bd.platform == 'Linux':
         pass
     else:
-        ret = mac(bd)
-    return ret
+        mac(bd)
 main()
