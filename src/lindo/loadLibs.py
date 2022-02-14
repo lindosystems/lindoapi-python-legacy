@@ -1,7 +1,9 @@
 from distutils.sysconfig import get_python_lib
 import os
 import sys
+import subprocess
 import platform
+import glob
 
 class BuildData():
     """
@@ -21,6 +23,11 @@ class BuildData():
         self.pylindoPath = os.path.join(get_python_lib(
              plat_specific=1), 'lindo')
 
+def setSymLink(src, dest):
+     try:
+         os.symlink(src,  dest)
+     except Exception:
+         pass
 #
 # mac(bd:BuildData)
 # This function adds the Lindo API bin path to the 
@@ -29,31 +36,16 @@ class BuildData():
 #
 def mac(bd:BuildData):
     if bd.is_64bits:
-        lindoapi_dyld= os.path.join(bd.API_HOME,"bin/osx64x86")
+        binPath= os.path.join(bd.API_HOME,"bin/osx64x86")
     else:
-        lindoapi_dyld= os.path.join(bd.API_HOME,"bin/osx32x86")
+        binPath= os.path.join(bd.API_HOME,"bin/osx32x86")
+
+    dylibList = glob.glob(os.path.join(binPath, "*.dylib"))
+    for dylibPath in dylibList:
+        dylibName = str.split(dylibPath, sep="/")[-1]
+        linkPath = os.path.join(bd.pylindoPath, dylibName)
+        setSymLink(dylibPath, linkPath)
         
-    DYLD_LIBRARY_PATH = os.environ["DYLD_LIBRARY_PATH"]
-    if lindoapi_dyld not in DYLD_LIBRARY_PATH:
-        DYLD_LIBRARY_PATH += ";"+lindoapi_dyld
-        os.environ["DYLD_LIBRARY_PATH"] = DYLD_LIBRARY_PATH
-
-#
-# linux(bd:BuildData)
-# This function adds the Lindo API bin path to the 
-# environment variable LD_LIBRARY_PATH if it is
-# not already included.
-#
-def linux(bd:BuildData):
-    if bd.is_64bits:
-        lindoapi_ld = os.path.join(bd.API_HOME,"bin/linux64/")
-    else:
-        lindoapi_ld = os.path.join(bd.API_HOME,"bin/linux/")
-
-    LD_LIBRARY_PATH = os.environ["DYLD_LIBRARY_PATH"]
-    if lindoapi_ld not in LD_LIBRARY_PATH:
-        LD_LIBRARY_PATH += ";"+lindoapi_ld
-        os.environ["LD_LIBRARY_PATH"] = LD_LIBRARY_PATH
 #
 # windows()
 # This function adds the dll directory at 
@@ -73,9 +65,10 @@ def main():
         print("Environment variable LINDOAPI_HOME should be set!")
         exit(0)
     if bd.platform == 'Windows' or bd.platform == "CYGWIN_NT-6.3":
-        windows(bd)
+        ret = windows(bd)
     elif bd.platform == 'Linux':
-        linux(bd)
+        pass
     else:
-        mac(bd)
+        ret = mac(bd)
+    return ret
 main()

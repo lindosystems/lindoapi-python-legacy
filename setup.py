@@ -10,7 +10,7 @@ import os
 import sys
 import platform
 
-VERSION = "1.0.2"
+VERSION = "13.0.0"
 
 class BuildData():
     """
