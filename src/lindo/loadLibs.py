@@ -55,7 +55,8 @@ def windows(bd:BuildData):
         LibPath = bd.API_HOME + '/bin/win64'        
     else:
         LibPath = bd.API_HOME + '/bin/win32'
-    os.add_dll_directory(LibPath)
+    if (sys.version_info[0] == 3) and (sys.version_info[1] != 7):
+        os.add_dll_directory(LibPath)
 
 
 def main():

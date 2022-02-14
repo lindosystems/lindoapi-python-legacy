@@ -72,7 +72,7 @@ elif bd.platform == 'Linux':
         LindoLib = 'lindo'
         LibPath = os.path.join(bd.API_HOME, 'lib/linux32')
         BinPath = os.path.join(bd.API_HOME, 'bin/linux32')
-    extra_link_args = '-Wl,-rpath-link,' + LibPath + ' -Wl,-rpath,' + LibPath
+    extra_link_args = '-Wl,-rpath='+BinPath
     macros = []
 
 # For Mac OS X
