@@ -21,7 +21,7 @@ This python package can be downloaded with pip
 > pip install lindo
 ```
 
-## How to build
+## How to Build Wheel and Install 
 
 To build the python package on any operating system first start by creating a whl file. form the top of the lindoapi-python directory run the command.
 
