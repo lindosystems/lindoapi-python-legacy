@@ -1,3 +1,3 @@
-The Python Interface to LINDO API.
+The Legacy Python Interface to LINDO API.
 
-This package requires LINDO API 13.0 and a valid license key. Please refer to INSTALL for installation details.
+This repository is deprecated. Use the [lindoapi-python](git@github.com:lindosystems/lindoapi-python.git) version instead.
