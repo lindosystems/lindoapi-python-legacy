@@ -130,7 +130,7 @@ dmypy.json
 
 # Lindo selections
 _*.sh
-tmp/
+_tmp/
 pyLindo/pyLindo_*
 *.old
 *.py~
